@@ -1,0 +1,5 @@
+{
+  "1.0.0": {
+    "en": "Collect weather data from existing sensors and send them as APRS/CWOP weather report to APRS-IS network."
+  }
+}
