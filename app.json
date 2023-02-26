@@ -28,6 +28,7 @@
     "name": "Tapio Heiskanen",
     "email": "oh2th@iki.fi"
   },
+  "brandColor": "#4a90e2",
   "tags": {
     "en": [
       "aprs",
@@ -38,7 +39,30 @@
       "weather"
     ]
   },
-  "brandColor": "#4a90e2",
+  "contributors": {
+    "developers": [
+      {
+        "name": "Tapio Heiskanen"
+      }
+    ]
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "oh2th"
+      },
+      "githubSponsors": {
+        "username": "oh2th"
+      }
+    }
+  },
+  "homeyCommunityTopicId": 75592,
+  "source": "https://github.com/oh2th/fi.oh2th.aprs-is",
+  "support": "https://github.com/oh2th/fi.oh2th.aprs-is/discussions/categories/general",
+  "homepage": "https://oh2th.fi/tapio/homey/",
+  "bugs": {
+    "url": "https://github.com/oh2th/fi.oh2th.aprs-is/issues"
+  },
   "flow": {
     "actions": [
       {

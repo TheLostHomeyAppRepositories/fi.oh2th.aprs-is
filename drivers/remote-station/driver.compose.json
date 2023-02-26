@@ -1,7 +1,8 @@
 {
   "name": {
-    "en": "Remote Station"
+    "en": "Remote Station (Work in progress)"
   },
+  "deprecated": true,
   "class": "other",
   "capabilities": [
     "measure_temperature",

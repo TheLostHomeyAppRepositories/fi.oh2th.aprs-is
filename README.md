@@ -4,7 +4,7 @@
 
 Automatic Packet Reporting System (APRS) is an amateur radio-based system for real time digital communications of information of immediate value in the local area. Data can include GPS position reports, weather station telemetry, text messages, announcements, queries, and other telemetry.
 
-Send weather reports to the world-wide weather network as a radioamateur (callsign required) or using Citizen Weather Obeservation Program (CWOP free registration required).
+Send weather reports to the world-wide weather network as a radioamateur (callsign required) or using Citizen Weather Observation Program (CWOP free registration required).
 
 Note that your Homey location is used to get your weather station's geolocation and published to the service with the weather report.
 
