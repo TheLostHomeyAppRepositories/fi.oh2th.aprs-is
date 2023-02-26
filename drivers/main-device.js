@@ -149,7 +149,8 @@ module.exports = class mainDevice extends Device {
     const now = new Date();
     const nowMinutes = now.getMinutes();
 
-    this.purgeRainHistory();
+    // Purge rain history every five minutes
+    if (nowMinutes % 5 === 0) this.purgeRainHistory();
 
     // Trasmit data to APRS-IS every txInterval minutes for devices that transmit.
     if(this.txInterval) {
