@@ -1,0 +1,85 @@
+{
+  "title": {
+    "en": "Update wind data"
+  },
+  "hint": {
+    "en": "Sets the wind data used to send to APRS-IS."
+  },
+  "titleFormatted": {
+    "en": "Set wind speed to [[wind_speed]], gust speed to [[wind_gust]] in [[units]] and direction to [[wind_angle]]."
+  },
+  "args": [
+    {
+      "name": "wind_speed",
+      "type": "number",
+      "title": {
+        "en": "Wind speed"
+      },
+      "placeholder": {
+        "en": "In selected units"
+      },
+      "required": true
+    },
+    {
+      "name": "wind_gust",
+      "type": "number",
+      "title": {
+        "en": "Wind gust speed (optional)"
+      },
+      "placeholder": {
+        "en": "In selected units"
+      },
+      "required": false
+    },
+    {
+      "name": "units",
+      "type": "dropdown",
+      "title": {
+        "en": "Units"
+      },
+      "values": [
+        {
+          "id": "m/s",
+          "title": {
+            "en": "m/s"
+          }
+        },
+        {
+          "id": "km/h",
+          "title": {
+            "en": "km/h"
+          }
+        },
+        {
+          "id": "mph",
+          "title": {
+            "en": "mph"
+          }
+        },
+        {
+          "id": "knots",
+          "title": {
+            "en": "knots"
+          }
+        }
+      ],
+      "required": true
+    },
+    {
+      "name": "wind_angle",
+      "type": "number",
+      "title": {
+        "en": "Wind angle"
+      },
+      "placeholder": {
+        "en": "In angle degrees"
+      },
+      "required": true
+    },
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=my-station"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+    "settings": {
+      "title": "New Station",
+      "configuration": "Configuration",
+      "callsign": "Callsign",
+      "callsign_help": "Amateur radio callsign of the station with optional SSID. Example: N0CALL-1",
+      "passcode": "Passcode",
+      "passcode_help": "APRS-IS passcode of the station. Example: -1 for a receive only station.",
+      "filter": "Filter",
+      "filter_help": "APRS-IS filter as described in the APRS-IS specification https://www.aprs-is.net/javAPRSFilter.aspx. Example: m/50 to receive reports in 50km range.",
+      "server": "APRS-IS Tier-2 Region",
+      "server_help": "APRS-IS Tier-2 region to connect to. Citizen Weather Observer Program is automatically selected for CWOP-stations.",
+      "aprs_tier2": {
+        "rotate": "Worldwide (rotate)",
+        "noam": "North America",
+        "soam": "South America",
+        "euro": "Europe & Africa",
+        "asia": "Asia",
+        "aunz": "Oceania",
+        "cwop": "Citizen Weather Observer Program"
+      },
+      "function_add": "Add station",
+      "error": {
+        "callsign_required": "Callsign is required",
+        "passcode_required": "Passcode is required",
+        "filter_invalid": "Filter as described in the APRS-IS specification https://www.aprs-is.net/javAPRSFilter.aspx"
+      }
+    }
+  }

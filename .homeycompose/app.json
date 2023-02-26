@@ -1,0 +1,41 @@
+{
+  "id": "fi.oh2th.aprs-is",
+  "version": "1.0.0",
+  "compatibility": ">=8.0.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "APRS-IS Client"
+  },
+  "description": {
+    "en": "Automatic Packet Reporting System / Citizen Weather Obeservation Program"
+  },
+  "category": [
+    "tools"
+  ],
+  "permissions": [
+    "homey:manager:geolocation"
+  ],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Tapio Heiskanen",
+    "email": "oh2th@iki.fi"
+  },
+  "tags": {
+    "en": [
+      "aprs",
+      "amateur radio",
+      "radioamateur",
+      "ham radio",
+      "cwop",
+      "weather"
+    ]
+  },
+  "brandColor": "#4a90e2"
+}

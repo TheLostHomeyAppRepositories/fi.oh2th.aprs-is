@@ -1,0 +1,49 @@
+{
+  "title": {
+    "en": "Update rainfall"
+  },
+  "hint": {
+    "en": "Sets the rainfall used to send to APRS-IS."
+  },
+  "titleFormatted": {
+    "en": "Set rainfall to [[rain]] in [[units]]."
+  },
+  "args": [
+    {
+      "name": "rain",
+      "type": "number",
+      "title": {
+        "en": "Rainfall now"
+      },
+      "placeholder": {
+        "en": "In millimeters"
+      }
+    },
+    {
+      "name": "units",
+      "type": "dropdown",
+      "title": {
+        "en": "Units"
+      },
+      "values": [
+        {
+          "id": "mm",
+          "title": {
+            "en": "Millimeters"
+          }
+        },
+        {
+          "id": "in",
+          "title": {
+            "en": "Inches"
+          }
+        }
+      ]
+    },
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=my-station"
+    }
+  ]
+}

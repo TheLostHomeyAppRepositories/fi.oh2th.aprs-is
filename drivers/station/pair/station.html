@@ -1,0 +1,119 @@
+<script type="application/javascript">
+
+  $(function () {
+    // Input handler to set server to cwop.aprs.net if callsign starts with CW, DW, EW or GW
+    const input_callsign = document.querySelector("[id='callsign']");
+    input_callsign.addEventListener('change', updateValue);
+    const d_p = document.getElementById('div_passcode');
+    function updateValue(e) {
+      const cwop_re = /^[C-G]W[0-9]{4}$/;
+      if (cwop_re.test(e.target.value)) {
+        console.log(`Callsign ${e.target.value} starts with CW, DW, EW or GW, setting server to cwop.aprs2.net`);
+        document.getElementById('server').value = 'cwop.aprs2.net';
+        document.getElementById('server').disabled = true;
+        d_p.style.display = "none";
+      } else {
+        document.getElementById('server').disabled = false;
+        d_p.style.display = "block";
+      }
+    }
+
+    $('#function_add').click(function () {
+      document.getElementById('function_add').classList.add('is-loading');
+      var randomUUID = function () {
+        var d = new Date().getTime();
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+          var r = (d + Math.random() * 16) % 16 | 0;
+          d = Math.floor(d / 16);
+          return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+        return uuid;
+      };
+
+      // Validate input
+      if (!document.getElementById('callsign').value) {
+        Homey.alert(Homey.__('settings.error.callsign_required'));
+        document.getElementById('function_add').classList.remove('is-loading');
+        return;
+      }
+      if (!document.getElementById('passcode').value) {
+        Homey.alert(Homey.__('settings.error.passcode_required'));
+        document.getElementById('function_add').classList.remove('is-loading');
+        return;
+      }
+      if (!document.getElementById('filter').value) {
+        Homey.alert(Homey.__('settings.error.filter_required'));
+        document.getElementById('function_add').classList.remove('is-loading');
+        return;
+      }
+
+      console.log('Adding device with callsign: ' + document.getElementById('callsign').value);
+      console.log('Adding device with passcode: ' + document.getElementById('passcode').value);
+      console.log('Adding device with filter: ' + document.getElementById('filter').value);
+      console.log('Adding device with server: ' + document.getElementById('server').value);
+
+      // Create device
+      Homey.createDevice({
+        name: document.getElementById('callsign').value,
+        data: {
+          id: randomUUID(),
+        },
+        store: {},
+        settings: {
+          callsign: document.getElementById('callsign').value,
+          passcode: document.getElementById('passcode').value,
+          filter: document.getElementById('filter').value,
+          server: document.getElementById('server').value,
+        },
+      });
+      Homey.done();
+    });
+  });
+</script>
+
+<header class="homey-header">
+  <h1 class="homey-title" data-i18n="settings.title"><!--settings.title--></h1>
+</header>
+
+<form class="homey-form">
+  <fieldset class="homey-form-fieldset">
+    <legend class="homey-form-legend" data-i18n="settings.configuration"><!--settings.configuration--></legend>
+
+    <div class="homey-form-group">
+      <label class="homey-form-label" for="callsign" data-i18n="settings.callsign"><!--settings.callsign--></label>
+      <input class="homey-form-input" id="callsign" type="text" value="N0CALL" />
+      <p class="homey-form-label" data-i18n="settings.callsign_help"><!--settings.callsign_help--></p>
+    </div>
+
+    <div class="homey-form-group" id="div_passcode">
+      <label class="homey-form-label" for="passcode" data-i18n="settings.passcode"><!--settings.passcode--></label>
+      <input class="homey-form-input" id="passcode" type="text" value="-1" />
+      <p class="homey-form-label" data-i18n="settings.passcode_help"><!--settings.passcode_help--></p>
+    </div>
+
+    <div class="homey-form-group">
+      <label class="homey-form-label" for="filter" data-i18n="settings.filter"><!--settings.filter--></label>
+      <input class="homey-form-input" id="filter" type="text" value='m/50' />
+      <p class="homey-form-label" data-i18n="settings.filter_help"><!--settings.filter_help--></p>
+    </div>
+
+    <div class="homey-form-group">
+      <label class="homey-form-label" for="server" data-i18n="settings.server"><!--settings.server--></label>
+      <select class="homey-form-select" name="server" id="server">
+        <option value="rotate.aprs2.net" selected data-i18n="settings.aprs_tier2.rotate">
+          <!--settings.aprs_tier2.rotate--></option>
+        <option value="noam.aprs2.net" data-i18n="settings.aprs_tier2.noam"><!--settings.aprs_tier2.noam--></option>
+        <option value="soam.aprs2.net" data-i18n="settings.aprs_tier2.soam"><!--settings.aprs_tier2.soam--></option>
+        <option value="euro.aprs2.net" data-i18n="settings.aprs_tier2.euro"><!--settings.aprs_tier2.euro--></option>
+        <option value="asia.aprs2.net" data-i18n="settings.aprs_tier2.asia"><!--settings.aprs_tier2.asia--></option>
+        <option value="aunz.aprs2.net" data-i18n="settings.aprs_tier2.aunz"><!--settings.aprs_tier2.aunz--></option>
+        <option value="cwop.aprs2.net" data-i18n="settings.aprs_tier2.cwop"><!--settings.aprs_tier2.cwop--></option>
+      </select>
+      <p class="homey-form-label" data-i18n="settings.server_help"><!--settings.server_help--></p>
+    </div>
+  </fieldset>
+  <div class="homey-form-group buttons">
+    <button class="homey-button-primary-full" id="function_add"
+      data-i18n="settings.function_add"><!--settings.function_add--></button>
+  </div>
+</form>

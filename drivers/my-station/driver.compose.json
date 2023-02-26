@@ -1,0 +1,201 @@
+{
+  "name": {
+    "en": "My Station"
+  },
+  "deprecated": true,
+  "class": "other",
+  "capabilities": [
+    "measure_temperature",
+    "measure_wind_angle",
+    "measure_wind_strength",
+    "measure_gust_strength",
+    "measure_humidity",
+    "measure_pressure",
+    "measure_rain",
+    "measure_rain.1h",
+    "measure_rain.24h",
+    "measure_rain.today"
+  ],
+  "capabilitiesOptions": {
+    "measure_rain.1h": {
+      "type": "number",
+      "title": {
+        "en": "Rain 1 hour"
+      },
+      "hint": {
+        "en": "Rain in the last hour"
+      },
+      "units": {
+        "en": "mm"
+      },
+      "decimals": 0,
+      "getable": true,
+      "setable": false,
+      "insights": true
+    },
+    "measure_rain.24h": {
+      "type": "number",
+      "title": {
+        "en": "Rain 24 hours"
+      },
+      "hint": {
+        "en": "Rain in the last 24 hours"
+      },
+      "units": {
+        "en": "mm"
+      },
+      "decimals": 0,
+      "getable": true,
+      "setable": false,
+      "insights": true
+    },
+    "measure_rain.today": {
+      "type": "number",
+      "title": {
+        "en": "Rain today"
+      },
+      "hint": {
+        "en": "Rain since midnight"
+      },
+      "units": {
+        "en": "mm"
+      },
+      "decimals": 0,
+      "getable": true,
+      "setable": false,
+      "insights": true
+    }
+  },
+  "energy": {
+    "approximation": {
+      "usageConstant": 0
+    },
+    "on": {
+      "title": {
+        "en": "On"
+      },
+      "description": {
+        "en": "Turns on the station"
+      }
+    }
+  },
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "lan"
+  ],
+  "images": {
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png",
+    "xlarge": "{{driverAssetsPath}}/images/xlarge.png"
+  },
+  "pair": [
+    {
+      "id": "station"
+    }
+  ],
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Station configuration"
+      },
+      "children": [
+        {
+          "id": "callsign",
+          "type": "text",
+          "label": {
+            "en": "Callsign"
+          },
+          "hint": {
+            "en": "Amateur radio callsign of the station with optional SSID. Example: N0CALL-1"
+          },
+          "value": "N0CALL-1"
+        },
+        {
+          "id": "passcode",
+          "type": "text",
+          "label": {
+            "en": "Passcode"
+          },
+          "hint": {
+            "en": "APRS-IS passcode of the station. Example: -1 for a receive only station."
+          },
+          "value": "-1"
+        },
+        {
+          "id": "server",
+          "type": "dropdown",
+          "label": {
+            "en": "APRS-IS Tier-2 Region"
+          },
+          "hint": {
+            "en": "APRS-IS Tier-2 region to connect to."
+          },
+          "value": "rotate.aprs2.net",
+          "values": [
+            {
+              "id": "rotate.aprs2.net",
+              "label": {
+                "en": "Worldwide (rotate)"
+              }
+            },
+            {
+              "id": "noam.aprs2.net",
+              "label": {
+                "en": "North America"
+              }
+            },
+            {
+              "id": "soam.aprs2.net",
+              "label": {
+                "en": "South America"
+              }
+            },
+            {
+              "id": "euro.aprs2.net",
+              "label": {
+                "en": "Europe & Africa"
+              }
+            },
+            {
+              "id": "asia.aprs2.net",
+              "label": {
+                "en": "Asia"
+              }
+            },
+            {
+              "id": "aunz.aprs2.net",
+              "label": {
+                "en": "Oceania"
+              }
+            },
+            {
+              "id": "cwop.aprs2.net",
+              "label": {
+                "en": "Citizen Weather Observer Program"
+              }
+            }
+          ]
+        },
+        {
+          "id": "interval",
+          "type": "number",
+          "label": {
+            "en": "APRS transmit interval"
+          },
+          "hint": {
+            "en": "APRS transmit interval 5-60 minutes."
+          },
+          "value": 15,
+          "min": 5,
+          "max": 60,
+          "units": {
+            "en": "minutes"
+          }
+        }
+      ]
+    }
+  ]
+}

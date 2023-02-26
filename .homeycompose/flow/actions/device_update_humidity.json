@@ -1,0 +1,28 @@
+{
+  "title": {
+    "en": "Update humidity"
+  },
+  "hint": {
+    "en": "Sets the humidity used to send to APRS-IS."
+  },
+  "titleFormatted": {
+    "en": "Set humidity to [[humidity]]."
+  },
+  "args": [
+    {
+      "name": "humidity",
+      "type": "number",
+      "title": {
+        "en": "Relative humidity"
+      },
+      "placeholder": {
+        "en": "In relative percentage"
+      }
+    },
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=my-station"
+    }
+  ]
+}

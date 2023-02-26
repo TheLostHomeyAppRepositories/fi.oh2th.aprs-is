@@ -1,0 +1,28 @@
+{
+  "title": {
+    "en": "Update temperature"
+  },
+  "hint": {
+    "en": "Sets the temperature used to send to APRS-IS."
+  },
+  "titleFormatted": {
+    "en": "Set temperature to [[temperature]]."
+  },
+  "args": [
+    {
+      "name": "temperature",
+      "type": "number",
+      "title": {
+        "en": "Temperature"
+      },
+      "placeholder": {
+        "en": "In degrees Celsius"
+      }
+    },
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=my-station"
+    }
+  ]
+}

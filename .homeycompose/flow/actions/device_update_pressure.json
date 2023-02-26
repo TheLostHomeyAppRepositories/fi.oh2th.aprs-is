@@ -1,0 +1,28 @@
+{
+  "title": {
+    "en": "Update air pressure"
+  },
+  "hint": {
+    "en": "Sets the air pressure used to send to APRS-IS."
+  },
+  "titleFormatted": {
+    "en": "Set air pressure to [[pressure]]."
+  },
+  "args": [
+    {
+      "name": "pressure",
+      "type": "number",
+      "title": {
+        "en": "Air pressure"
+      },
+      "placeholder": {
+        "en": "In millibars"
+      }
+    },
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=my-station"
+    }
+  ]
+}
