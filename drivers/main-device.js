@@ -198,22 +198,22 @@ module.exports = class mainDevice extends Device {
    */
   async onAction_DEVICE_UPDATE_WIND(args) {
     // Wind direction
-    this.setValue('measure_wind_angle', (args.wind_angle).toFixed(0));
+    this.setValue('measure_wind_angle', Math.round(args.wind_angle));
     // Wind speed
     let wind_speed = args.wind_speed;
-    if (args.units === 'm/s') wind_speed = args.wind_speed * 1;
-    if (args.units === 'km/h') wind_speed = args.wind_speed / 3.6;
-    if (args.units === 'mph') wind_speed = args.wind_speed / 2.236936;
-    if (args.units === 'knots') wind_speed = args.wind_speed / 1.943844;
-    this.setValue('measure_wind_strength', (wind_speed).toFixed(1));
-    // Wind gust
-    if (args.wind_gust) {
+    if (args.units === 'm/s') wind_speed = Math.round(args.wind_speed * 36) / 10;
+    if (args.units === 'km/h') wind_speed = Math.round(args.wind_speed * 10) / 10;
+    if (args.units === 'mph') wind_speed = Math.round(args.wind_speed * 16.09) / 10;
+    if (args.units === 'knots') wind_speed = Math.round(args.wind_speed * 18.52) / 10;
+    this.setValue('measure_wind_strength', wind_speed);
+    // Wind gust - optional argument in flow card
+    if (args.wind_gust !== undefined) {
       let wind_gust = args.wind_gust;
-      if (args.units === 'm/s') wind_gust = args.wind_gust * 1;
-      if (args.units === 'km/h') wind_gust = args.wind_gust / 3.6;
-      if (args.units === 'mph') wind_gust = args.wind_gust / 2.236936;
-      if (args.units === 'knots') wind_gust = args.wind_gust / 1.943844;
-      this.setValue('measure_gust_strength', (wind_gust).toFixed(1));
+      if (args.units === 'm/s') wind_gust = Math.round(args.wind_gust * 36) / 10;
+      if (args.units === 'km/h') wind_gust = Math.round(args.wind_gust * 10) / 10;
+      if (args.units === 'mph') wind_gust = Math.round(args.wind_gust * 16.09) / 10;
+      if (args.units === 'knots') wind_gust = Math.round(args.wind_gust * 18.52) / 10;
+      this.setValue('measure_gust_strength', wind_gust);
     } else {
       this.setValue('measure_gust_strength', null);
     }
@@ -361,20 +361,14 @@ module.exports = class mainDevice extends Device {
       return;
     }
 
+    this.log(`${this.getName()} - transmitWXStationData - lati=${latitude}, long=${longitude}, temp=${temperature}, wdir=${windDirection}, wspd=${windSpeed}, wgst=${windSpeedGust}, humi=${humidity}, baro=${pressure}, r1h=${rainLastHour}, r24h=${rainLast24Hours}, rday=${rainSinceMidnight}`);
     this.aprs.sendAprsWeatherReport({
-      latitude,
-      longitude,
-      symbolTable: '/',
-      symbolCode: '_',
+      latitude, longitude,
+      symbolTable: '/', symbolCode: '_',
       temperature,
-      windDirection,
-      windSpeed,
-      windSpeedGust,
-      humidity,
-      pressure,
-      rainLastHour,
-      rainLast24Hours,
-      rainSinceMidnight,
+      windDirection, windSpeed, windSpeedGust,
+      humidity, pressure,
+      rainLastHour, rainLast24Hours, rainSinceMidnight,
       comment: 'Homey WX-Station'
     });
   }
