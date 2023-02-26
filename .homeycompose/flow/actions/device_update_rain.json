@@ -43,7 +43,7 @@
     {
       "type": "device",
       "name": "device",
-      "filter": "driver_id=my-station"
+      "filter": "driver_id=my-station|wx-station"
     }
   ]
 }

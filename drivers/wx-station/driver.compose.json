@@ -27,7 +27,7 @@
       "units": {
         "en": "mm"
       },
-      "decimals": 0,
+      "decimals": 1,
       "getable": true,
       "setable": false,
       "insights": true
@@ -43,7 +43,7 @@
       "units": {
         "en": "mm"
       },
-      "decimals": 0,
+      "decimals": 1,
       "getable": true,
       "setable": false,
       "insights": true
@@ -59,7 +59,7 @@
       "units": {
         "en": "mm"
       },
-      "decimals": 0,
+      "decimals": 1,
       "getable": true,
       "setable": false,
       "insights": true

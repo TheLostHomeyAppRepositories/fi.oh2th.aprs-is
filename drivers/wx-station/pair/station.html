@@ -48,7 +48,7 @@
 
       // Create device
       Homey.createDevice({
-        name: document.getElementById('callsign').value,
+        name: `WX ${document.getElementById('callsign').value}`,
         data: {
           id: randomUUID(),
         },

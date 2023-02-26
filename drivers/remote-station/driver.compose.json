@@ -1,8 +1,7 @@
 {
   "name": {
-    "en": "My Station"
+    "en": "Remote Station"
   },
-  "deprecated": true,
   "class": "other",
   "capabilities": [
     "measure_temperature",
@@ -12,15 +11,14 @@
     "measure_humidity",
     "measure_pressure",
     "measure_rain",
-    "measure_rain.1h",
-    "measure_rain.24h",
+    "measure_rain.24hour",
     "measure_rain.today"
   ],
   "capabilitiesOptions": {
-    "measure_rain.1h": {
+    "measure_rain": {
       "type": "number",
       "title": {
-        "en": "Rain 1 hour"
+        "en": "Rain"
       },
       "hint": {
         "en": "Rain in the last hour"
@@ -28,15 +26,15 @@
       "units": {
         "en": "mm"
       },
-      "decimals": 0,
+      "decimals": 1,
       "getable": true,
-      "setable": false,
+      "setable": true,
       "insights": true
     },
-    "measure_rain.24h": {
+    "measure_rain.24hour": {
       "type": "number",
       "title": {
-        "en": "Rain 24 hours"
+        "en": "Rain 24 hour"
       },
       "hint": {
         "en": "Rain in the last 24 hours"
@@ -44,9 +42,9 @@
       "units": {
         "en": "mm"
       },
-      "decimals": 0,
+      "decimals": 1,
       "getable": true,
-      "setable": false,
+      "setable": true,
       "insights": true
     },
     "measure_rain.today": {
@@ -55,14 +53,14 @@
         "en": "Rain today"
       },
       "hint": {
-        "en": "Rain since midnight"
+        "en": "Rain today"
       },
       "units": {
         "en": "mm"
       },
-      "decimals": 0,
+      "decimals": 1,
       "getable": true,
-      "setable": false,
+      "setable": true,
       "insights": true
     }
   },
@@ -125,6 +123,17 @@
           "value": "-1"
         },
         {
+          "id": "filter",
+          "type": "text",
+          "label": {
+            "en": "Filter"
+          },
+          "hint": {
+            "en": "APRS-IS filter. Example: m/50 to receive reports in 50km range."
+          },
+          "value": "m/50"
+        },
+        {
           "id": "server",
           "type": "dropdown",
           "label": {
@@ -178,22 +187,6 @@
               }
             }
           ]
-        },
-        {
-          "id": "interval",
-          "type": "number",
-          "label": {
-            "en": "APRS transmit interval"
-          },
-          "hint": {
-            "en": "APRS transmit interval 5-60 minutes."
-          },
-          "value": 15,
-          "min": 5,
-          "max": 60,
-          "units": {
-            "en": "minutes"
-          }
         }
       ]
     }

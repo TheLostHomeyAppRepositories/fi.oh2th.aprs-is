@@ -18,7 +18,9 @@ module.exports = class mainDevice extends Device {
     this.setUnavailable(`Initializing ${this.getName()}`);
 
     const settings = this.getSettings();
-    this.txInterval = settings.interval;
+    // TX Interval is only needed for devices that sends reports to APRS-IS. Some devices read only.
+    // Interval in use with: wx-station
+    if(settings.interval) this.txInterval = settings.interval;
 
     this.aprs = new APRSClient(settings.server, PORTNUMBER, settings.callsign, settings.passcode, settings.filter);
     this.aprs.appVersion = `${this.homey.manifest.id} ${this.homey.manifest.version}`;
@@ -149,11 +151,12 @@ module.exports = class mainDevice extends Device {
 
     this.purgeRainHistory();
 
-    // Trasmit data to APRS-IS every txInterval minutes, sync to start of hour
-    if (nowMinutes % this.txInterval === 0) {
-      this.log(`${this.getName()} - onInterval - txInterval - ${this.txInterval} minutes`);
-      this.txIntervalCounter = 0;
-      this.transmitWXStationData();
+    // Trasmit data to APRS-IS every txInterval minutes for devices that transmit.
+    if(this.txInterval) {
+      if (nowMinutes % this.txInterval === 0) {
+        this.log(`${this.getName()} - onInterval - txInterval - ${this.txInterval} minutes`);
+        this.transmitWXStationData();
+      }
     }
 
     // Restart Interval if offset in seconds is more than 5 seconds
