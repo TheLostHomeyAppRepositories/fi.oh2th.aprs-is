@@ -10,7 +10,7 @@
     "en": "APRS-IS Client"
   },
   "description": {
-    "en": "Share your weather data to APRS and CWOP"
+    "en": "Share weather data with APRS and CWOP networks"
   },
   "category": [
     "tools"
