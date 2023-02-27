@@ -10,7 +10,7 @@
     "en": "APRS-IS Client"
   },
   "description": {
-    "en": "Automatic Packet Reporting System / Citizen Weather Observation Program"
+    "en": "Share your weather data to APRS and CWOP"
   },
   "category": [
     "tools"
