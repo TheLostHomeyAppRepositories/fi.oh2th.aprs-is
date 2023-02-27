@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "fi.oh2th.aprs-is",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "compatibility": ">=8.0.0",
   "sdk": 3,
   "platforms": [
@@ -11,7 +11,7 @@
     "en": "APRS-IS Client"
   },
   "description": {
-    "en": "Automatic Packet Reporting System / Citizen Weather Observation Program"
+    "en": "Share weather data with APRS and CWOP networks"
   },
   "category": [
     "tools"
