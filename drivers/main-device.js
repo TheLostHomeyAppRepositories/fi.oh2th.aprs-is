@@ -2,8 +2,8 @@
 
 const { Device } = require('homey');
 
-const { sleep, checkCapabilities, startInterval, clearIntervals } = require('../../lib/helpers');
-const APRSClient = require('../../lib/aprs-client');
+const { sleep, checkCapabilities, startInterval, clearIntervals } = require('../lib/helpers');
+const APRSClient = require('../lib/aprs-client');
 const INTERVAL = 60000;
 const PORTNUMBER = 14580;
 const DEBUG = false;
