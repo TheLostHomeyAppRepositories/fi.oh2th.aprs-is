@@ -4,5 +4,8 @@
   },
   "1.0.1": {
     "en": "Collect weather data from existing sensors and send them to APRS/CWOP network."
+  },
+  "1.0.2": {
+    "en": "FIX: Path issue to helper libraries"
   }
 }
