@@ -288,14 +288,14 @@ module.exports = class mainDevice extends Device {
       this.setCapabilityValue('measure_rain', null);
       this.setCapabilityValue('measure_rain.1h', null);
     }
-    await this.setStoreValue('rain1h', JSON.stringify(rain1h));
+    await this.setStoreValue('rain1h', JSON.stringify(rain1h)).catch(this.error);
     this.log(`${this.getName()} - purgeRainHistory - rain1h: ${JSON.stringify(rain1h)}`);
 
     // 24-hour rain on the hour zero the hourly rainfall entry before new data is received
     const rain24h = JSON.parse(await this.getStoreValue('rain24h')) || [];
     if (now.getMinutes() === 0) {
       rain24h[now.getUTCHours()] = 0;
-      await this.setStoreValue('rain24h', JSON.stringify(rain24h));
+      await this.setStoreValue('rain24h', JSON.stringify(rain24h)).catch(this.error);
       const rain24hTotal = rain24h.reduce((total, rainfall) => total + rainfall, 0);
       if(rain24hTotal === 0) {
         this.setCapabilityValue('measure_rain.24h', null);
