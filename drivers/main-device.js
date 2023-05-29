@@ -26,34 +26,50 @@ module.exports = class mainDevice extends Device {
     this.aprs.appVersion = `${this.homey.manifest.id} ${this.homey.manifest.version}`;
     this.aprs.debug = DEBUG;
 
+    // Login to server on succesful connection.
     this.aprs.on('connect', (server) => {
       this.log(`${this.getName()} - APRSClient - connected: ${server}`);
       this.aprs.userLogin();
       this.setAvailable();
     });
 
-    this.aprs.on('error', (error) => {
-      this.log(`${this.getName()} - APRSClient - error: ${error}`);
-      this.setUnavailable(`APRSClient - error: ${error}`);
-    });
-
-    this.aprs.on('end', (error) => {
-      this.log(`${this.getName()} - APRSClient - end: ${error}`);
-      this.setUnavailable(`APRSClient - end: ${error}`);
-    });
-
-    this.aprs.on('close', (error) => {
-      this.log(`${this.getName()} - APRSClient - close: ${error}`);
-      this.setUnavailable(`APRSClient - close: ${error}`);
-    });
-
-    this.aprs.on('reconnect', (server) => {
-      this.log(`${this.getName()} - APRSClient - reconnect: ${server}`);
-      this.setUnavailable(`APRSClient - reconnect: ${server}`);
-    });
+    // this.aprs.on('reconnect', (server) => {
+    //   this.log(`${this.getName()} - APRSClient - reconnect: ${server}`);
+    // });
 
     this.aprs.on('data', (packet) => {
       this.log(`${this.getName()} - APRSClient - packet: ${JSON.stringify(packet)}`);
+    });
+
+    // Clean closure of connection to server. Do not reconnect.
+    this.aprs.on('close', (error) => {
+      this.log(`${this.getName()} - APRSClient - close: ${error}`);
+      this.setUnavailable(`APRSClient - close: ${error}`);
+      this.aprs.disconnect();
+    });
+
+    // Server closed connection. Reconnect.
+    this.aprs.on('end', (error) => {
+      this.log(`${this.getName()} - APRSClient - end: ${error}`);
+      this.setUnavailable(`APRSClient - end: ${error}`);
+      this.aprs.disconnect();
+
+      this.log(`${this.getName()} - APRSClient - reconnecting`);
+      this.aprs.reconnect().catch((err) => {
+        this.log(`${this.getName()} - APRSClient - reconnect error: ${err}`);
+      });
+    });
+
+    // Log errors
+    this.aprs.on('error', (error) => {
+      this.log(`${this.getName()} - APRSClient - error: ${error}`);
+      // this.setUnavailable(`APRSClient - error: ${error}`);
+      // this.aprs.disconnect();
+
+      // this.log(`${this.getName()} - APRSClient - reconnecting`);
+      // this.aprs.reconnect().catch((err) => {
+      //   this.log(`${this.getName()} - APRSClient - reconnect error: ${err}`);
+      // });
     });
 
     checkCapabilities(this);
@@ -116,7 +132,9 @@ module.exports = class mainDevice extends Device {
 
     if (reconnect) {
       this.log(`${this.getName()} - onSettings - reconnecting`);
-      this.aprs.reconnect();
+      this.aprs.reconnect().catch((err) => {
+        this.log(`${this.getName()} - onSettings - reconnect error: ${err}`);
+      });
     }
 
     this.log(`${this.getName()} - onSettings done`);
