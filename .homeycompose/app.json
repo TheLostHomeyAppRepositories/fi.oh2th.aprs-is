@@ -1,6 +1,6 @@
 {
   "id": "fi.oh2th.aprs-is",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "compatibility": ">=8.0.0",
   "sdk": 3,
   "platforms": [

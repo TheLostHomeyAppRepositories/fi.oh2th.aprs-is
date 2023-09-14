@@ -13,5 +13,11 @@
   },
   "1.0.4": {
     "en": "Switch APRS tocall to registered APHMEY deviceid."
+  },
+  "1.0.5": {
+    "en": "Add error handling by catching Promise calls."
+  },
+  "1.0.6": {
+    "en": "ADD: Sentry logging for uncaughtRejections"
   }
 }
