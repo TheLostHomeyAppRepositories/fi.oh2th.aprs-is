@@ -41,11 +41,16 @@ module.exports = class mainDevice extends Device {
       this.log(`${this.getName()} - APRSClient - packet: ${JSON.stringify(packet)}`);
     });
 
-    // Clean closure of connection to server. Do not reconnect.
+    // Connection closed to server. Reconnect.
     this.aprs.on('close', (error) => {
       this.log(`${this.getName()} - APRSClient - close: ${error}`);
       this.setUnavailable(`APRSClient - close: ${error}`).catch(this.error);
       this.aprs.disconnect();
+
+      this.log(`${this.getName()} - APRSClient - reconnecting`);
+      this.aprs.reconnect().catch((err) => {
+        this.log(`${this.getName()} - APRSClient - reconnect error: ${err}`);
+      });
     });
 
     // Server closed connection. Reconnect.
