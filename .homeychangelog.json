@@ -19,5 +19,8 @@
   },
   "1.0.6": {
     "en": "ADD: Sentry logging for uncaughtRejections"
+  },
+  "1.0.7": {
+    "en": "FIX: Reconnect on connection closed."
   }
 }
