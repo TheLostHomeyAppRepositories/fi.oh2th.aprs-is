@@ -22,5 +22,8 @@
   },
   "1.0.7": {
     "en": "FIX: Reconnect on connection closed."
+  },
+  "1.0.8": {
+    "en": "FIX: APRS packet lat/lon for 0-prefixed decimal minutes."
   }
 }
