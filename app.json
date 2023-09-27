@@ -648,6 +648,12 @@
                   }
                 },
                 {
+                  "id": "nordic.aprs2.net",
+                  "label": {
+                    "en": "Nordic Countries"
+                  }
+                },
+                {
                   "id": "asia.aprs2.net",
                   "label": {
                     "en": "Asia"
