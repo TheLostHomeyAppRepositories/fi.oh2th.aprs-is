@@ -28,5 +28,8 @@
   },
   "1.0.9": {
     "en": "ADD: Option to select Nordic APRS pool"
+  },
+  "1.0.10": {
+    "en": "FIX. Rain reset at midnight, rain TX-conversion."
   }
 }
