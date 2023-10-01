@@ -328,10 +328,10 @@ module.exports = class mainDevice extends Device {
     }
     this.log(`${this.getName()} - purgeRainHistory - rain24h: ${rain24h}`);
 
-    // Rain today - zero at midight
+    // Rain today - zero at midnight
     // Can't use getHours() as Homey OS misbehaves and returns local time instead of UTC, so we need to use toLocaleString() to get the current hour in local time.
     const nowHours = Number(now.toLocaleString('POSIX', { timeZone: this.homey.clock.getTimezone(), hour12: false, hour: "numeric" }));
-    if ((nowHours === 0 && now.getMinutes() === 0)) {
+    if (((nowHours === 0 || nowHours === 24) && now.getMinutes() === 0)) {
       this.setStoreValue('rainToday', 0).catch(this.error);
       this.setCapabilityValue('measure_rain.today', null).catch(this.error);
       this.log(`${this.getName()} - purgeRainHistory - rainToday: ${this.getCapabilityValue('measure_rain.today')}`);
