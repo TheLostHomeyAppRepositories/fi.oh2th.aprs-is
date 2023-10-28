@@ -2,8 +2,14 @@
 
 const Homey = require('homey');
 const { Log } = require('homey-log');
+const process = require('process');
+
 const flowActions = require('./lib/flows/actions');
 
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+  // You can add additional error handling or logging here.
+});
 module.exports = class AprsApp extends Homey.App {
 
   /**
