@@ -31,5 +31,8 @@
   },
   "1.0.10": {
     "en": "FIX. Rain reset at midnight, rain TX-conversion."
+  },
+  "1.0.11": {
+    "en": "Improved connection error handling."
   }
 }
