@@ -1,32 +1,14 @@
 {
-  "extends": [
-    "athom",
-    "plugin:node/recommended",
-    "plugin:prettier/recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings",
-    "plugin:import/typescript"
-  ],
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "extensions": [
-          ".js",
-          ".ts"
-        ]
-      }
-    }
-  },
+  "extends": "athom",
   "rules": {
-    "no-console": "off"
+    "no-console": "off",
+    "no-tabs": ["error", { "allowIndentationTabs": true }]
   },
   "overrides": [
     {
-      "files": [
-        "*.ts",
-        "*.js"
-      ],
+      "files": ["*.ts", "*.js"],
       "rules": {
+        "max-len": "off",
         "no-undef": "off",
         "no-unused-vars": "off",
         "no-useless-constructor": "off",
@@ -47,13 +29,15 @@
         "camelcase": "off",
         "consistent-return": "off",
         "func-names": "off",
-        "quote-props": [
-          "error",
-          "consistent-as-needed",
-          {
-            "keywords": true
-          }
-        ]
+	      "quote-props": ["error", "consistent-as-needed", { "keywords": true }],
+        "dot-notation": "off",
+        "arrow-body-style": "off",
+        "object-curly-newline": "off",
+        "object-shorthand": "off",
+        "prefer-destructuring": "off",
+        "no-nested-ternary": "off",
+        "prefer-arrow-callback": "off",
+        "arrow-parens": "off"
       }
     }
   ]

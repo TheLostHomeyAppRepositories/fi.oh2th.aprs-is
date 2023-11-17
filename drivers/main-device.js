@@ -4,6 +4,7 @@ const { Device } = require('homey');
 
 const { sleep, checkCapabilities, startInterval, clearIntervals } = require('../lib/helpers');
 const APRSClient = require('../lib/aprs-client');
+
 const INTERVAL = 60000;
 const PORTNUMBER = 14580;
 const DEBUG = false;
@@ -20,7 +21,7 @@ module.exports = class mainDevice extends Device {
     const settings = this.getSettings();
     // TX Interval is only needed for devices that sends reports to APRS-IS. Some devices read only.
     // Interval in use with: wx-station
-    if(settings.interval) this.txInterval = settings.interval;
+    if (settings.interval) this.txInterval = settings.interval;
 
     this.aprs = new APRSClient(settings.server, PORTNUMBER, settings.callsign, settings.passcode, settings.filter);
     this.aprs.appVersion = `${this.homey.manifest.id} ${this.homey.manifest.version}`;
@@ -29,7 +30,7 @@ module.exports = class mainDevice extends Device {
     // Login to server on succesful connection.
     this.aprs.on('connect', (server) => {
       this.log(`${this.getName()} - APRSClient - connected: ${server}`);
-      this.aprs.userLogin();
+      this.aprs.userLogin().catch(this.error).then(this.log(`${this.getName()} - APRSClient - logged in.`));
       this.setAvailable().catch(this.error);
     });
 
@@ -132,6 +133,9 @@ module.exports = class mainDevice extends Device {
           break;
         case 'interval':
           this.log(`${this.getName()} - onSettings - interval: ${newSettings.interval}`);
+          break;
+        default:
+          this.log(`${this.getName()} - onSettings - default`);
       }
     });
 
@@ -176,7 +180,7 @@ module.exports = class mainDevice extends Device {
     if (nowMinutes % 5 === 0) this.purgeRainHistory();
 
     // Trasmit data to APRS-IS every txInterval minutes for devices that transmit.
-    if(this.txInterval) {
+    if (this.txInterval) {
       if (nowMinutes % this.txInterval === 0) {
         this.log(`${this.getName()} - onInterval - txInterval - ${this.txInterval} minutes`);
         this.transmitWXStationData();
@@ -255,7 +259,7 @@ module.exports = class mainDevice extends Device {
   async onAction_DEVICE_UPDATE_RAIN(args) {
     const now = new Date();
     // Delay 10 seconds to allow onInterval() to purge any counters during onInterval.
-    if(now.getSeconds() === 0) sleep(10000);
+    if (now.getSeconds() === 0) sleep(10000);
 
     let rain = args.rain;
     if (args.units === 'mm') rain = Math.round(args.rain * 10) / 10;
@@ -277,7 +281,7 @@ module.exports = class mainDevice extends Device {
      * 1-hour rain
      * Store the hourly rainfall in an array in the device's settings
      */
-    let rain1h = JSON.parse(await this.getStoreValue('rain1h')) || [];
+    const rain1h = JSON.parse(await this.getStoreValue('rain1h')) || [];
     rain1h.push({ t: now.getTime(), r: rain });
     const rain1hTotal = rain1h.reduce((total, entry) => total + entry.r, 0);
     await this.setValue('measure_rain.1h', rain1hTotal);
@@ -307,7 +311,7 @@ module.exports = class mainDevice extends Device {
     const oldestTimestamp = now.getTime() - (60 * 60 * 1000);
     let rain1h = JSON.parse(await this.getStoreValue('rain1h')) || [];
     rain1h = rain1h.filter(entry => new Date(entry.t).getTime() > oldestTimestamp);
-    if( rain1h.length === 0 ) {
+    if (rain1h.length === 0) {
       this.setCapabilityValue('measure_rain', null).catch(this.error);
       this.setCapabilityValue('measure_rain.1h', null).catch(this.error);
     }
@@ -320,7 +324,7 @@ module.exports = class mainDevice extends Device {
       rain24h[now.getUTCHours()] = 0;
       await this.setStoreValue('rain24h', JSON.stringify(rain24h)).catch(this.error);
       const rain24hTotal = rain24h.reduce((total, rainfall) => total + rainfall, 0);
-      if(rain24hTotal === 0) {
+      if (rain24hTotal === 0) {
         this.setCapabilityValue('measure_rain.24h', null).catch(this.error);
       } else {
         this.setCapabilityValue('measure_rain.24h', rain24hTotal).catch(this.error);
@@ -330,7 +334,7 @@ module.exports = class mainDevice extends Device {
 
     // Rain today - zero at midnight
     // Can't use getHours() as Homey OS misbehaves and returns UTC instead of local time, so we need to use toLocaleString() to get the current hour in local time.
-    const nowHours = Number(now.toLocaleString('POSIX', { timeZone: this.homey.clock.getTimezone(), hour12: false, hour: "numeric" }));
+    const nowHours = Number(now.toLocaleString('POSIX', { timeZone: this.homey.clock.getTimezone(), hour12: false, hour: 'numeric' }));
     if (((nowHours === 0 || nowHours === 24) && now.getMinutes() === 0)) {
       this.setStoreValue('rainToday', 0).catch(this.error);
       this.setCapabilityValue('measure_rain.today', null).catch(this.error);
@@ -357,7 +361,6 @@ module.exports = class mainDevice extends Device {
       if (delay) await sleep(delay);
 
       await this.setCapabilityValue(key, value).catch(this.error);
-
     }
   }
 
@@ -365,7 +368,7 @@ module.exports = class mainDevice extends Device {
    * @description Transmit location and current weather data to aprs-is network
    * Uses WX-Station device capability values and Homey location
    * API is in lib/aprs-client.js
-   * 
+   *
    */
   async transmitWXStationData() {
     const latitude = this.homey.geolocation.getLatitude();
@@ -380,20 +383,27 @@ module.exports = class mainDevice extends Device {
     const rainLast24Hours = await this.getCapabilityValue('measure_rain.24h') || null;
     const rainSinceMidnight = await this.getCapabilityValue('measure_rain.today') || null;
 
-    if( !temperature && !windDirection && !windSpeed && !windSpeedGust && !humidity && !pressure && !rainLastHour && !rainLast24Hours && !rainSinceMidnight ) {
+    if (!temperature && !windDirection && !windSpeed && !windSpeedGust && !humidity && !pressure && !rainLastHour && !rainLast24Hours && !rainSinceMidnight) {
       this.log(`${this.getName()} - transmitWXStationData - nothing to send`);
       return;
     }
 
     this.log(`${this.getName()} - transmitWXStationData - lati=${latitude}, long=${longitude}, temp=${temperature}, wdir=${windDirection}, wspd=${windSpeed}, wgst=${windSpeedGust}, humi=${humidity}, baro=${pressure}, r1h=${rainLastHour}, r24h=${rainLast24Hours}, rday=${rainSinceMidnight}`);
     this.aprs.sendAprsWeatherReport({
-      latitude, longitude,
-      symbolTable: '/', symbolCode: '_',
+      latitude,
+      longitude,
+      symbolTable: '/',
+      symbolCode: '_',
       temperature,
-      windDirection, windSpeed, windSpeedGust,
-      humidity, pressure,
-      rainLastHour, rainLast24Hours, rainSinceMidnight,
-      comment: 'Homey WX-Station'
+      windDirection,
+      windSpeed,
+      windSpeedGust,
+      humidity,
+      pressure,
+      rainLastHour,
+      rainLast24Hours,
+      rainSinceMidnight,
+      comment: 'Homey WX-Station',
     });
   }
 
