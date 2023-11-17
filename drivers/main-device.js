@@ -7,7 +7,7 @@ const APRSClient = require('../lib/aprs-client');
 
 const INTERVAL = 60000;
 const PORTNUMBER = 14580;
-const DEBUG = true;
+const DEBUG = false;
 
 module.exports = class mainDevice extends Device {
 
