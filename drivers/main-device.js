@@ -81,11 +81,9 @@ module.exports = class mainDevice extends Device {
     checkCapabilities(this);
     startInterval(this, INTERVAL);
 
-    try {
-      this.aprs.connect();
-    } catch (err) {
-      // Nothing here as the error is hanled in the error event
-    }
+    this.aprs.connect().catch((err) => {
+      this.log(`${this.getName()} - onInit - connect error: ${err}`);
+    });
 
     this.log(`${this.getName()} - onInit done`);
   }
