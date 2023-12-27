@@ -37,7 +37,8 @@
         "prefer-destructuring": "off",
         "no-nested-ternary": "off",
         "prefer-arrow-callback": "off",
-        "arrow-parens": "off"
+        "arrow-parens": "off",
+				"indent": ["error", "tab"]
       }
     }
   ]

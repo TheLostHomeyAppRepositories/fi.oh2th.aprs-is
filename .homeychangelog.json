@@ -39,6 +39,6 @@
     "en": "FIX: Improved handling of APRS-IS session timeouts."
   },
   "1.0.13": {
-    "en": "FIX: Beter connection error handling"
+    "en": "FIX: Better connection error handling"
   }
 }
