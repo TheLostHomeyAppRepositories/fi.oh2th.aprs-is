@@ -11,8 +11,5 @@
     "@types/node": "^18.14.0",
     "eslint": "^7.32.0",
     "eslint-config-athom": "^3.1.1"
-  },
-  "dependencies": {
-    "homey-log": "^2.1.0"
   }
 }
