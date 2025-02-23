@@ -193,22 +193,14 @@ module.exports = class mainDevice extends Device {
 
   /**
    * @description Main polling interval to perform periodic actions.
+   * Override this in the device.js, this is here as template
    */
   async onInterval() {
-    // this.log(`${this.getName()} - onInterval`);
     const now = new Date();
     const nowMinutes = now.getMinutes();
 
-    // Purge rain history every five minutes
-    if (nowMinutes % 5 === 0) this.purgeRainHistory();
-
-    // Trasmit data to APRS-IS every txInterval minutes for devices that transmit.
-    if (this.txInterval) {
-      if (nowMinutes % this.txInterval === 0) {
-        this.log(`${this.getName()} - onInterval - txInterval - ${this.txInterval} minutes`);
-        this.transmitWXStationData();
-      }
-    }
+    // Do what is needed here
+    this.log(`${this.getName()} - onInterval`);
 
     // Restart Interval if offset in seconds is more than 5 seconds
     if (now.getSeconds() >= 5) {

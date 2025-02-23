@@ -45,7 +45,7 @@ module.exports = class stationDevice extends mainDevice {
 	 * @description Main polling interval to perform periodic actions.
 	 */
 	async onInterval() {
-		this.log(`${this.getName()} - onInterval`);
+		// this.log(`${this.getName()} - onInterval`);
 		const now = new Date();
 		const nowMinutes = now.getMinutes();
 
@@ -68,7 +68,7 @@ module.exports = class stationDevice extends mainDevice {
 			clearIntervals(this);
 			startInterval(this, INTERVAL);
 		}
-		this.log(`${this.getName()} - onInterval done`);
+		// this.log(`${this.getName()} - onInterval done`);
 	}
 
 	/**
