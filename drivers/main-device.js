@@ -15,7 +15,7 @@ module.exports = class mainDevice extends Device {
    */
   async onInit() {
     this.log(`${this.getName()} - onInit`);
-    this.setUnavailable(`Initializing ${this.getName()}`).catch(this.error);
+    this.setUnavailable(`Initializing ${this.getName()}`).catch(() => {});
 
     const settings = this.getSettings();
     // TX Interval is only needed for devices that sends reports to APRS-IS. Some devices read only.
@@ -146,7 +146,7 @@ module.exports = class mainDevice extends Device {
 
       if (autoReconnect) {
         this.log(`${this.getName()} - APRSClient - reconnecting`);
-        this.setUnavailable(`APRSClient - close: ${error}`).catch(this.error);
+        this.setUnavailable(`APRSClient - close: ${error}`).catch(() => {});
         this.aprs.disconnect();
         sleep(1000);
         this.aprs.reconnect().catch((err) => {
@@ -165,7 +165,7 @@ module.exports = class mainDevice extends Device {
 
       if (autoReconnect) {
         this.log(`${this.getName()} - APRSClient - reconnecting`);
-        this.setUnavailable(`APRSClient - end: ${error}`).catch(this.error);
+        this.setUnavailable(`APRSClient - end: ${error}`).catch(() => {});
         this.aprs.disconnect();
         sleep(1000);
         this.aprs.reconnect().catch((err) => {
@@ -181,7 +181,7 @@ module.exports = class mainDevice extends Device {
   initOnConnectError(autoReconnect = false) {
     this.aprs.on('error', (error) => {
       this.log(`${this.getName()} - APRSClient - error: ${error}`);
-      // this.setUnavailable(`APRSClient - error: ${error}`);
+      // this.setUnavailable(`APRSClient - error: ${error}`).catch(() => {});
       // this.aprs.disconnect();
 
       // this.log(`${this.getName()} - APRSClient - reconnecting`);

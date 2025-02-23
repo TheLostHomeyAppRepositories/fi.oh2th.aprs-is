@@ -16,7 +16,7 @@ module.exports = class stationDevice extends mainDevice {
 	 */
 	async onInit() {
 		this.log(`${this.getName()} - onInit`);
-		this.setUnavailable(`Initializing ${this.getName()}`).catch(this.error);
+		this.setUnavailable(`Initializing ${this.getName()}`).catch(() => {});
 
 		const settings = this.getSettings();
 		// TX Interval is only needed for devices that sends reports to APRS-IS. Some devices read only.
