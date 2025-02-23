@@ -46,5 +46,8 @@
   },
   "1.1.1": {
     "en": "FIX: Do not set WX-Station device unavailable when disconnected."
+  },
+  "1.1.2": {
+    "en": "Catch connection timeouts on WX-Station device"
   }
 }
