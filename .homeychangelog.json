@@ -43,5 +43,8 @@
   },
   "1.1.0": {
     "en": "WX-station now disconnects from server after data transmit."
+  },
+  "1.1.1": {
+    "en": "FIX: Do not set WX-Station device unavailable when disconnected."
   }
 }
