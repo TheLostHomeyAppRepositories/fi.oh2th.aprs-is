@@ -176,6 +176,22 @@ module.exports = class mainDevice extends Device {
   }
 
   /**
+   * @description On connection timeout, log it
+   */
+  initOnTimeout(autoReconnect = false) {
+    this.aprs.on('timeout', (error) => {
+      this.log(`${this.getName()} - APRSClient - timeout: ${error}`);
+      // this.setUnavailable(`APRSClient - timeout: ${error}`).catch(() => {});
+      // this.aprs.disconnect();
+
+      // this.log(`${this.getName()} - APRSClient - reconnecting`);
+      // this.aprs.reconnect().catch((err) => {
+      //   this.log(`${this.getName()} - APRSClient - reconnect error: ${err}`);
+      // });
+    });
+  }
+
+  /**
    * @description On connection error, log it
    */
   initOnConnectError(autoReconnect = false) {

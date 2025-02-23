@@ -32,6 +32,7 @@ module.exports = class stationDevice extends mainDevice {
 		this.initOnConnectClose(false);
 		this.initOnConnectEnd(false);
 		this.initOnConnectError(false);
+    this.initOnTimeout(false);
 
 		checkCapabilities(this);
 		startInterval(this, INTERVAL);
