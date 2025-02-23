@@ -143,11 +143,12 @@ module.exports = class mainDevice extends Device {
   initOnConnectClose(autoReconnect = false) {
     this.aprs.on('close', (error) => {
       this.log(`${this.getName()} - APRSClient - close: ${error}`);
-      this.setUnavailable(`APRSClient - close: ${error}`).catch(this.error);
-      this.aprs.disconnect();
 
       if (autoReconnect) {
         this.log(`${this.getName()} - APRSClient - reconnecting`);
+        this.setUnavailable(`APRSClient - close: ${error}`).catch(this.error);
+        this.aprs.disconnect();
+        sleep(1000);
         this.aprs.reconnect().catch((err) => {
           this.log(`${this.getName()} - APRSClient - reconnect error: ${err}`);
         });
@@ -161,11 +162,12 @@ module.exports = class mainDevice extends Device {
   initOnConnectEnd(autoReconnect = false) {
     this.aprs.on('end', (error) => {
       this.log(`${this.getName()} - APRSClient - end: ${error}`);
-      this.setUnavailable(`APRSClient - end: ${error}`).catch(this.error);
-      this.aprs.disconnect();
 
       if (autoReconnect) {
         this.log(`${this.getName()} - APRSClient - reconnecting`);
+        this.setUnavailable(`APRSClient - end: ${error}`).catch(this.error);
+        this.aprs.disconnect();
+        sleep(1000);
         this.aprs.reconnect().catch((err) => {
           this.log(`${this.getName()} - APRSClient - reconnect error: ${err}`);
         });
